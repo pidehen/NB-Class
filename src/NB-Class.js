@@ -40,7 +40,7 @@
     return self;
   }
 
-  NBClass.extend = function (protoProps = {}) {
+  NBClass.extend = function (protoProps = {}, staticProps) {
     const parent = this;
     const child = protoProps.initialize || function (...args) { return parent.apply(this, args); };
 
@@ -51,7 +51,7 @@
     child.prototype.constructor = child;
     child.__super__ = parent.prototype;
 
-    NBUtil.copy({}, child, parent);
+    NBUtil.copy(child, parent, staticProps, true);
 
     return child;
   };

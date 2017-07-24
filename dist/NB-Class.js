@@ -48,6 +48,7 @@
 
   NBClass.extend = function () {
     var protoProps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var staticProps = arguments[1];
 
     var parent = this;
     var child = protoProps.initialize || function () {
@@ -65,7 +66,7 @@
     child.prototype.constructor = child;
     child.__super__ = parent.prototype;
 
-    NBUtil.copy({}, child, parent);
+    NBUtil.copy(child, parent, staticProps, true);
 
     return child;
   };
